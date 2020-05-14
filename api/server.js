@@ -1,10 +1,11 @@
 'use strict';
 
+// dependencies
+require('dotenv').config();
 const express = require('express');
 
-
 // constants
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 // app
 const app = express();
