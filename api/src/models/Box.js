@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const Box = new Schema(
     {
-        uuid: String,
+        _id: String,
         filename: String
     }
     ,{

@@ -1,8 +1,15 @@
 version: '3'
 services:
-    pastebox-api:
+    db:
+        image: mongo
+        ports:
+            - "27017:27017"
+
+    api:
         build: ./api
-        volumes:
-            - "./api:/app"
         ports: 
             - "8080:8080"
+        volumes:
+            - "./api:/app"
+        depends_on: 
+            - db
