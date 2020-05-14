@@ -1,12 +1,11 @@
 // controllers/BoxController.js
-import BoxService from '../services/BoxService'
-
 const fs = require('fs');
 const { nanoid } = require('nanoid');
+const BoxService = require('../services/BoxService');
 
-export default class BoxController 
+class BoxController 
 {
-    async createNewBox(data) 
+    static async createNewBox(data) 
     {
         /* generate random name for file
          create file on system
@@ -15,22 +14,24 @@ export default class BoxController
         */
 
         let name = nanoid(); // todo: either swap this out for readable id's or swap out Box Model's
-        await fs.write(name, data);
+        await fs.writeFile(name, data);
         let item = await BoxService.createBox({filename: name});
         return item._id;
     }
 
-    async readBox(id) 
+    static async readBox(id) 
     {
         let item = await BoxService.getBox(id);
         let result = fs.readFileSync(item.filename);
         return result;
     }
 
-    async deleteBox(id) 
+    static async deleteBox(id) 
     {
         let item = await BoxService.deleteBox(id);
         await fs.unlink(item.filename);
         return "Deleted";
     }
 }
+
+module.exports = BoxController;

@@ -1,9 +1,8 @@
 // routes/boxRoutes.js
-import {createNewBox, readBox, deleteBox} from '../controllers/BoxController';
 
 const express = require('express');
 const router = express.Router();
-const bodyParser = require('body-parser');
+const {createNewBox, readBox, deleteBox} = require('../controllers/BoxController')
 
 // Box Schema
 const Box = require('../models/Box');

@@ -14,7 +14,7 @@ const port = process.env.PORT || 8080;
 const boxPath = '/box';
 
 // routes
-const boxRoutes = require('./src/routes/boxRoutes');
+const boxRoutes = require('./src/routes/BoxRoutes');
 
 // application
 const app = express();
