@@ -8,7 +8,15 @@ export default class BoxService
 
     async CreateBox(data)
     {
+
+        // TODO: allocate
+
         // TODO: generate a box with a readable identifier
+        const item = await Box.create({
+            
+        });
+
+        // TODO: return id to client
     }
 
     async GetBox(id)
