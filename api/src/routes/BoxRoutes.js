@@ -1,4 +1,5 @@
 // routes/boxRoutes.js
+import {createNewBox, readBox, deleteBox} from '../controllers/BoxController';
 
 const express = require('express');
 const router = express.Router();
@@ -12,7 +13,7 @@ const Box = require('../models/Box');
 router.route('')
     .post(async (req, res) => {
         const text = req.body.text; // text contents
-        // TODO: generate box with text, insert and save
+        let result = createNewBox(text);
         // TODO: respond with id
     });
 
@@ -20,7 +21,7 @@ router.route('')
 router.route('/:id')
     .get(async (req, res) => {
         const id = req.params.id;
-        // TODO: fetch box based on id
+        let data = readBox(id);
         // TODO: send box data
     });
 
@@ -28,7 +29,7 @@ router.route('/:id')
 router.route('/:id')
     .delete(async (req, res) => {
         const id = req.params.id;
-        // TODO: delete box based on id
+        let result = deleteBox(id);
         // TODO: send confirmation response of some sort
     });
 

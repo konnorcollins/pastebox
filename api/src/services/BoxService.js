@@ -1,4 +1,4 @@
-// services/boxService.js
+// services/BoxService.js
 
 const Box = require('../models/Box');
 
@@ -6,28 +6,21 @@ const Box = require('../models/Box');
 export default class BoxService 
 {
 
-    async CreateBox(data)
+    async createBox(data)
     {
-
-        // TODO: allocate
-
-        // TODO: generate a box with a readable identifier
-        const item = await Box.create({
-            
-        });
-
-        // TODO: return id to client
+        const item = await Box.create(data);
+        return item;
     }
 
-    async GetBox(id)
+    async getBox(id)
     {
-        const result = await Box.findById(id);
-        return result;
+        const item = await Box.findById(id);
+        return item;
     }
 
-    async DeleteBox(id)
+    async deleteBox(id)
     {
         const result = await Box.findByIdAndDelete(id);
-        // TODO: more validation
+        return result;
     }
 }
