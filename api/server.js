@@ -7,7 +7,15 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-// TODO: mongo db connection
+// mongo db connection
+mongoose.connect('mongodb://db', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('mongo connection established');
+    })
+    .catch(err => {
+        console.err(`PASTEBOX API FAILURE: ${err}`);
+        process.exit(1);
+    });
 
 // constants
 const port = process.env.PORT || 8080;
