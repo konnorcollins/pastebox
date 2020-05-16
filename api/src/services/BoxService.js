@@ -1,33 +1,28 @@
-// services/boxService.js
+// services/BoxService.js
 
 const Box = require('../models/Box');
 
 /* Basic wrapper for Box db */
-export default class BoxService 
+class BoxService 
 {
 
-    async CreateBox(data)
+    static async createBox(data)
     {
-
-        // TODO: allocate
-
-        // TODO: generate a box with a readable identifier
-        const item = await Box.create({
-            
-        });
-
-        // TODO: return id to client
+        const item = await Box.create(data);
+        return item;
     }
 
-    async GetBox(id)
+    static async getBox(id)
     {
-        const result = await Box.findById(id);
+        const item = await Box.findById(id);
+        return item;
+    }
+
+    static async deleteBox(id)
+    {
+        const result = await Box.findOneAndDelete({_id: id});
         return result;
     }
-
-    async DeleteBox(id)
-    {
-        const result = await Box.findByIdAndDelete(id);
-        // TODO: more validation
-    }
 }
+
+module.exports = BoxService;

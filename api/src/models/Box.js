@@ -2,11 +2,23 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { nanoid } = require('nanoid');
 
 const Box = new Schema(
     {
-        _id: String,
-        filename: String
+        _id: 
+        {
+            type: String,
+            default: () => nanoid()
+        },
+        title:
+        {
+            type: String
+        },
+        filename:
+        {
+            type: String
+        }
     }
     ,{
         collection: 'Boxes' 

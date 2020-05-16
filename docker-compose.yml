@@ -4,6 +4,8 @@ services:
         image: mongo
         ports:
             - "27017:27017"
+        volumes:
+            - data-volume:/data/db
 
     api:
         build: ./api
@@ -13,3 +15,6 @@ services:
             - "./api:/app"
         depends_on: 
             - db
+
+volumes:
+    data-volume:
