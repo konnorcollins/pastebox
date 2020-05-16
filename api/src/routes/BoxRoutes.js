@@ -12,44 +12,49 @@ const Box = require('../models/Box');
 
 // POST /box
 router.route('')
-    .post(async (req, res) => {
+    .post((req, res) => {
         const title = req.body.title; // title of box
         const text = req.body.text; // text contents
-        createBox({title: title, filename: nanoid()})
+        const filename = `${nanoid()}.txt`;
+        createBox({title: title, filename: filename})
             .then((data, err) => {
                 console.log(`Created new box:\n${data}\n`);
+                fs.writeFileSync(filename, text);
                 res.json({_id: data._id});
             })
             .catch(err => {
-                res.json({err: err});
+                res.json({err: `Failed to create box!\n`});
             });
     });
 
 // GET /box/:id
 router.route('/:id')
-    .get(async (req, res) => {
+    .get((req, res) => {
         const id = req.params.id;
         getBox(id)
-            .then((data, err) => {
-                console.log(`Fetching box:\n${data}\n`);
-                res.json({_id: data._id, title: data.title, filename: data.filename});
+            .then((item, err) => {
+                console.log(`Fetching box:\n${item}\n`);
+                let data = fs.readFileSync(item.filename);
+                res.json({_id: item._id, title: item.title, filename: item.filename, text: data.toString()});
             })
             .catch(err => {
-                res.json({err: err});
+                res.json({err: `Box ${id} does not exist!`});
             });
     });
 
 // DEL /box/:id
 router.route('/:id')
-    .delete(async (req, res) => {
+    .delete((req, res) => {
         const id = req.params.id;
         deleteBox(id)
-            .then((data, err) => {
-                console.log(`Nuked box:\n${data}\n`);
-                res.json({msg: `${data} deleted.`});
+            .then((item) => {
+                console.log(`Nuking box:\n${item}\n`);
+                fs.unlinkSync(item.filename);
+                res.json({msg: `${item._id} deleted.`});
             })
             .catch(err => {
-                res.json({err: err});
+                console.err(err.toString());
+                res.json({err: `Failed to delete box ${id} from db and disk!`});
             });
     });
 

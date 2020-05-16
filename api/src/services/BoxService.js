@@ -20,7 +20,7 @@ class BoxService
 
     static async deleteBox(id)
     {
-        const result = await Box.findByIdAndDelete(id);
+        const result = await Box.findOneAndDelete({_id: id});
         return result;
     }
 }
