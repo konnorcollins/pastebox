@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const {createNewBox, readBox, deleteBox} = require('../controllers/BoxController')
+const {createBox, getBox, deleteBox} = require('../services/BoxService');
 
 // Box Schema
 const Box = require('../models/Box');
@@ -12,16 +12,16 @@ const Box = require('../models/Box');
 router.route('')
     .post(async (req, res) => {
         const text = req.body.text; // text contents
-        let result = createNewBox(text);
-        res.json({id: result});
+        let result = createBox(text);
+        res.json({id: result._id});
     });
 
 // GET /box/:id
 router.route('/:id')
     .get(async (req, res) => {
         const id = req.params.id;
-        let data = readBox(id);
-        res.json({data: data});
+        let data = getBox(id);
+        res.json({data: data.filename});
     });
 
 // DEL /box/:id
