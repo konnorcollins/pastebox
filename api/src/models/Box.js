@@ -11,6 +11,10 @@ const Box = new Schema(
             type: String,
             default: () => nanoid()
         },
+        title:
+        {
+            type: String
+        },
         filename:
         {
             type: String
