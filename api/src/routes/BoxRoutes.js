@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const {createBox, getBox, deleteBox} = require('../services/BoxService');
 const { nanoid } = require('nanoid');
+const fs = require('fs');
 
 // Box Schema
 const Box = require('../models/Box');
@@ -12,11 +13,12 @@ const Box = require('../models/Box');
 // POST /box
 router.route('')
     .post(async (req, res) => {
+        const title = req.body.title; // title of box
         const text = req.body.text; // text contents
-        createBox({title: text, filename: nanoid()})
+        createBox({title: title, filename: nanoid()})
             .then((data, err) => {
                 console.log(`Created new box:\n${data}\n`);
-                res.json({id: data._id});
+                res.json({_id: data._id});
             })
             .catch(err => {
                 res.json({err: err});
@@ -44,7 +46,7 @@ router.route('/:id')
         deleteBox(id)
             .then((data, err) => {
                 console.log(`Nuked box:\n${data}\n`);
-                res.json({msg: `${data._id} deleted.`});
+                res.json({msg: `${data} deleted.`});
             })
             .catch(err => {
                 res.json({err: err});
