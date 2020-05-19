@@ -9,9 +9,11 @@ const fs = require('fs');
 // Box Schema
 const Box = require('../models/Box');
 
+const path = './data/';
+
 
 // POST /box
-router.route('')
+router.route('/')
     .post((req, res) => {
         const title = req.body.title; // title of box
         const text = req.body.text; // text contents
@@ -19,7 +21,7 @@ router.route('')
         createBox({title: title, filename: filename})
             .then((data, err) => {
                 console.log(`Created new box:\n${data}\n`);
-                fs.writeFileSync(filename, text);
+                fs.writeFileSync(path + filename, text);
                 res.json({_id: data._id});
             })
             .catch(err => {
@@ -34,7 +36,7 @@ router.route('/:id')
         getBox(id)
             .then((item, err) => {
                 console.log(`Fetching box:\n${item}\n`);
-                let data = fs.readFileSync(item.filename);
+                let data = fs.readFileSync(path + item.filename);
                 res.json({_id: item._id, title: item.title, filename: item.filename, text: data.toString()});
             })
             .catch(err => {
@@ -49,7 +51,7 @@ router.route('/:id')
         deleteBox(id)
             .then((item) => {
                 console.log(`Nuking box:\n${item}\n`);
-                fs.unlinkSync(item.filename);
+                fs.unlinkSync(path + item.filename);
                 res.json({msg: `${item._id} deleted.`});
             })
             .catch(err => {
