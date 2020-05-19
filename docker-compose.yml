@@ -5,16 +5,24 @@ services:
         ports:
             - "27017:27017"
         volumes:
-            - data-volume:/data/db
+            - db-data:/data/db
 
     api:
         build: ./api
         ports: 
             - "8080:8080"
         volumes:
-            - "./api:/app"
+            - text-data:/usr/src/app/data
         depends_on: 
             - db
 
+    client:
+        build: ./client
+        ports:
+            - "3000:3000"
+        depends_on:
+            - api
+        stdin_open: true
 volumes:
-    data-volume:
+    text-data:
+    db-data:
