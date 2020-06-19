@@ -16,8 +16,8 @@ function App() {
       <div className="container">
         <Router>
           <nav>
-            <Link to="/">Home</Link>
-            <Link to="/add">Add</Link>
+            <Link to="/" className="NavBar-Link">Home</Link>
+            <Link to="/add" className="NavBar-Link">Add</Link>
           </nav>
           <Switch>
               <Route path="/view/:id" component={ViewBox}/>

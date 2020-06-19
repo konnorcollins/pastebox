@@ -75,7 +75,7 @@ export default class AddBox extends Component
                         </div>
                         <div className="panel-body">
                             <input type="text" name="title" value={this.state.title} onChange={this.handleTitleChange} placeholder="Title" className="form-control"/>
-                            <input type="text" name="text" value={this.state.text} onChange={this.handleTextChange} placeholder="Paste text here..." className="form-control"/>
+                            <textarea type="text" name="text" value={this.state.text} onChange={this.handleTextChange} placeholder="Paste text here..." rows="4" className="form-control"/>
                         </div>
                         <div className="panel-footer">
                             <button type="submit" className="btn btn-primary">Create</button>

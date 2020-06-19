@@ -24,6 +24,10 @@
   color: white;
 }
 
+.NavBar-Link {
+  margin: 5px;
+}
+
 .App-link {
   color: #61dafb;
 }
